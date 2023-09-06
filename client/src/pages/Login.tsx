@@ -5,12 +5,20 @@ const Login = () => {
 
   const [name, setName] = useState("")
 
+  // 送出表單
   const submitHandle = async () => {
+
+    if (name == "") {
+      alert('請輸入名稱')
+      return
+    }
+
     fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: 'include',
       body: JSON.stringify({ username: name }),
     })
       .then(response => {
@@ -21,9 +29,13 @@ const Login = () => {
       .catch(error => console.log(error))
   }
 
+  // 確認有無登入
   const loginCheckHandle = () => {
-    fetch(`${BASE_URL}/`, {
+    fetch(`${BASE_URL}`, {
       method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
       credentials: 'include', // 這是重要的部分，表示要發送Cookie
     })
       .then(response => response.json())
@@ -33,6 +45,7 @@ const Login = () => {
       });
   }
 
+  // 登出按鈕
   const logoutCheckHandle = () => {
     fetch(`${BASE_URL}/logout`, {
       method: 'GET',
@@ -54,6 +67,7 @@ const Login = () => {
       <form>
         <input
           type="text"
+          placeholder="Name"
           onChange={(e) => {
             setName(e.target.value)
           }}
@@ -65,11 +79,18 @@ const Login = () => {
           Register
         </button>
       </form>
+
+      <br />
+      
       <button
         onClick={loginCheckHandle}
       >
         Logged In Check
       </button>
+      
+      <br />
+      <br />
+      
       <button type="button"
         onClick={logoutCheckHandle}
       >logout</button>
