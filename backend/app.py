@@ -5,25 +5,28 @@ from flask_session import Session
 
 app = Flask(__name__)
 app.secret_key = "#@*(!#fdsfjkl;j)"
+
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = "filesystem"
+
+# Session Cookie 設定
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = True
+
 # 處理 samesite=None 的問題
 session_cookie = SecureCookieSessionInterface.get_signing_serializer(self=SecureCookieSessionInterface, app=app)
 CORS(
     app=app,
     supports_credentials=True,
-    # resources={r"/*": {"origins":"*"}}
 )
 Session(app)
 
 # 設定session cookie
-@app.after_request
-def cookies(response):
-    sameCookie = session_cookie.dumps(dict(session))
-    response.headers.add("Set-Cookie", f"my_cookie={sameCookie}; Secure; HttpOnly; SameSite=None; Path=/;")
-    return response
+# @app.after_request
+# def cookies(response):
+#     sameCookie = session_cookie.dumps(dict(session))
+#     response.headers.add("Set-Cookie", f"my_cookie={sameCookie}; Secure; HttpOnly; SameSite=None; Path=/;")
+#     return response
 
 # 取得session內的數值
 @app.route('/')
