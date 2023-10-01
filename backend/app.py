@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, session, redirect, jsonify
+from flask import Flask, request, session, jsonify
 from flask.sessions import SecureCookieSessionInterface
 from flask_cors import CORS
 from flask_session import Session
@@ -20,13 +20,6 @@ CORS(
     supports_credentials=True,
 )
 Session(app)
-
-# 設定session cookie
-# @app.after_request
-# def cookies(response):
-#     sameCookie = session_cookie.dumps(dict(session))
-#     response.headers.add("Set-Cookie", f"my_cookie={sameCookie}; Secure; HttpOnly; SameSite=None; Path=/;")
-#     return response
 
 # 取得session內的數值
 @app.route('/')
