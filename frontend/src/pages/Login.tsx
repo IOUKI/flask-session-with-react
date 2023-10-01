@@ -76,7 +76,7 @@ const Login = () => {
           type="button"
           onClick={submitHandle}
         >
-          Register
+          登入名稱
         </button>
       </form>
 
@@ -85,7 +85,7 @@ const Login = () => {
       <button
         onClick={loginCheckHandle}
       >
-        Logged In Check
+        取得登入名稱
       </button>
       
       <br />
@@ -93,7 +93,7 @@ const Login = () => {
       
       <button type="button"
         onClick={logoutCheckHandle}
-      >logout</button>
+      >撤銷名稱</button>
     </>
   )
 }
